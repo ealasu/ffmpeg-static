@@ -52,7 +52,7 @@ cd $BUILD_DIR
 ../fetchurl "http://downloads.xvid.org/downloads/xvidcore-1.3.2.tar.gz"
 ../fetchurl "http://downloads.sourceforge.net/project/lame/lame/3.99/lame-3.99.5.tar.gz"
 #../fetchurl "http://ffmpeg.org/releases/ffmpeg-2.0.tar.bz2"
-../fetchurl "https://api.github.com/repos/ealasu/FFmpeg/tarball" "ffmpeg-ealasu-master.tar.gz"
+../fetchurl "https://github.com/ealasu/FFmpeg/tarball/master" "ffmpeg-ealasu-master.tar.gz"
 
 echo "*** Building yasm ***"
 cd $BUILD_DIR/yasm*
