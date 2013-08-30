@@ -22,6 +22,7 @@ fi
 TMP_DIR=${TMP_DIR:-/tmp}
 
 URL=$1
+filename=$2
 
 set -u
 
@@ -69,7 +70,10 @@ if [ -z "$CACHE_DIR" ] && [ "$CACHE" -ne 0 ]; then
   usage
 fi
 
-filename=`basename "$URL" | sed 's/\?.*//'`
+if [ -z "$filename" ]; then
+  filename=`basename "$URL" | sed 's/\?.*//'`
+fi
+
 tmp_file="$TMP_DIR/$filename"
 cache_file="$CACHE_DIR/$filename"
 
