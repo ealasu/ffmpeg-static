@@ -61,8 +61,8 @@ cd $BUILD_DIR
 ../fetchurl "http://downloads.xiph.org/releases/theora/libtheora-1.1.1.tar.bz2"
 #../fetchurl "http://webm.googlecode.com/files/libvpx-v1.1.0.tar.bz2"
 ../fetchurl "http://downloads.sourceforge.net/project/faac/faac-src/faac-1.28/faac-1.28.tar.bz2"
-../fetchurl "ftp://ftp.videolan.org/pub/x264/snapshots/last_x264.tar.bz2"
-../fetchurl "http://downloads.xvid.org/downloads/xvidcore-1.3.2.tar.gz"
+#../fetchurl "ftp://ftp.videolan.org/pub/x264/snapshots/last_x264.tar.bz2"
+#../fetchurl "http://downloads.xvid.org/downloads/xvidcore-1.3.2.tar.gz"
 ../fetchurl "http://downloads.sourceforge.net/project/lame/lame/3.99/lame-3.99.5.tar.gz"
 ../fetchurl "http://downloads.xiph.org/releases/opus/opus-1.1.tar.gz"
 ../fetchurl "http://www.ffmpeg.org/releases/ffmpeg-2.1.4.tar.bz2"
@@ -79,6 +79,7 @@ cd $BUILD_DIR/zlib*
 make -j $jval
 make install
 
+# TODO: figure out how to cross-compile this
 #echo "*** Building bzip2 ***"
 #cd $BUILD_DIR/bzip2*
 #make
@@ -125,17 +126,19 @@ sed -i -e "s|^char \*strcasestr.*|//\0|" common/mp4v2/mpeg4ip.h
 make -j $jval
 make install
 
-echo "*** Building x264 ***"
-cd $BUILD_DIR/x264*
-./configure --prefix=$TARGET_DIR --host=arm-linux-gnueabihf --enable-static --disable-shared --disable-opencl
-make -j $jval
-make install
+# TODO: figure out how to cross-compile
+#echo "*** Building x264 ***"
+#cd $BUILD_DIR/x264*
+#./configure --prefix=$TARGET_DIR --host=arm-linux-gnueabihf --cross-prefix=${CCPREFIX} --enable-static --disable-shared --disable-opencl --extra-cflags="-march=armv7" --extra-ldflags="-march=armv7"
+#make -j $jval
+#make install
 
-echo "*** Building xvidcore ***"
-cd "$BUILD_DIR/xvidcore/build/generic"
-./configure --prefix=$TARGET_DIR --host=arm-linux-gnueabihf --enable-static --disable-shared
-make -j $jval
-make install
+#echo "*** Building xvidcore ***"
+#cd "$BUILD_DIR/xvidcore/build/generic"
+#./configure --prefix=$TARGET_DIR --host=arm-linux-gnueabihf --enable-static --disable-shared
+#make -j $jval
+#make install
+
 #rm $TARGET_DIR/lib/libxvidcore.so.*
 
 echo "*** Building lame ***"
@@ -183,8 +186,8 @@ CFLAGS="-I$TARGET_DIR/include" LDFLAGS="-L$TARGET_DIR/lib -lm" ./configure \
 --disable-libopus \
 --enable-libtheora \
 --enable-libvorbis \
---enable-libx264 \
---enable-libxvid \
+--disable-libx264 \
+--disable-libxvid \
 --disable-bzlib \
 --enable-zlib \
 --enable-nonfree \
